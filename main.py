@@ -16,28 +16,34 @@ class MainWindow(QMainWindow):
         self.ui.home_btn.setChecked(True)
 
     ## Function for searching
-    def slot_on_search_btn_clicked(self):
-        self.ui.stackedWidget.setCurrentIndex(2)
+    @Slot()
+    def on_search_btn_clicked(self):
+        print(5555)
+        self.ui.content_stackedWidget.setCurrentWidget(self.ui.page_search)
         search_text = self.ui.search_input.text().strip()
         if search_text:
             self.ui.label_search.setText(search_text)
 
     ## Function for changing page to user page
+    @Slot()
     def on_user_btn_clicked(self):
-        self.ui.stackedWidget.setCurrentIndex(3)
+        self.ui.content_stackedWidget.setCurrentIndex(3)
 
     ## Change QPushButton Checkable status when stackedWidget index changed
-    def on_content_stackedWidget_currentChanged(self, index):
-        btn_list = self.ui.menu_items_vertiLay.findChildren(QPushButton)
+    @Slot()
+    def on_content_stackedWidget_currentChanged(self):
+        btn_list = self.ui.sidebar_items_box_widget.findChildren(QPushButton)
         for btn in btn_list:
             btn.setAutoExclusive(True)
             
-    ## functions for changing menu page
-    def on_page_home_toggled(self):
-        self.ui.stackedWidget.setCurrentIndex(0)
+    ## functions for changing sidebar page
+    @Slot()
+    def on_home_btn_clicked(self):
+        self.ui.content_stackedWidget.setCurrentIndex(0)
 
-    def on_page_dashboard_toggled(self):
-        self.ui.stackedWidget.setCurrentIndex(1)
+    @Slot()
+    def on_dashborad_btn_clicked(self):
+        self.ui.content_stackedWidget.setCurrentIndex(1)
 
 
 if __name__ == "__main__":
@@ -49,7 +55,7 @@ if __name__ == "__main__":
     # app.setStyleSheet(style_str)
 
     ## loading style file, Example 2
-    style_file = QFile("#010_sidebar/style.qss")
+    style_file = QFile("style.qss")
     style_file.open(QFile.ReadOnly | QFile.Text)
     style_stream = QTextStream(style_file)
     app.setStyleSheet(style_stream.readAll())

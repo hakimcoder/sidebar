@@ -6,9 +6,9 @@
 /*= END
   ==================================================== */
 
-/*= Style for button to change menu style START
+/*= Style for button to toggle menu style START
   ==================================================== */
-	#change_btn {
+	#toggle_menu_btn {
 		padding: 5px;
 		border: none;
 		width: 30px;
@@ -19,7 +19,7 @@
 
 /*= Style for header widget START
   ==================================================== */
-	#widget {
+	#content_header_widget {
 		background-color: #f9fafd;
 	}
 /*= END
@@ -51,38 +51,38 @@
 /*= END
   ==================================================== */
 
-/*= Style for menu with icon and text START
+/*= Style for sidebar_main_widget with icon and text START
   ==================================================== */
 	/* style for widget */
-	#full_menu_widget {
+	#sidebar_main_widget {
 		background-color: #313a46;
 	}
 
 	/* style for QPushButton */
-	#full_menu_widget QPushButton {
-		border:none;
-		border-radius: 3px;
+	#sidebar_main_widget QPushButton {
+		/* border:none;
+		border-radius: 3px; */
 		text-align: left;
-		padding: 8px 0 8px 15px;
-		color: #788596;
+		/* padding: 8px 0 8px 15px;
+		color: #788596; */
 	}
 
-	#full_menu_widget QPushButton:hover {
+	#sidebar_main_widget QPushButton:hover {
 		background-color: rgba( 86, 101, 115, 0.5);
 	}
 
-	#full_menu_widget QPushButton:checked {
+	#sidebar_main_widget QPushButton:checked {
 		color: #fff;
 	}
 
-	/* style for logo image */
-	#logo_label_2 {
+	/* style for sidebar title image */
+	#logo_label_icon {
 		padding: 5px;
 		color: #fff;
 	}
 
-	/* style for APP title */
-	#logo_label_3 {
+	/* style for sidebar title text (app title)*/
+	#logo_label_text {
 		padding-right: 10px;
 		color: #fff;
 	}

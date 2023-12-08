@@ -69,9 +69,11 @@ class Ui_MainWindow(object):
         self.toggle_menu_btn.setObjectName(u"toggle_menu_btn")
         icon = QIcon()
         icon.addFile(u":/icon/icon/menu-4-32.ico", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icon/icon/menu-4-48.ico", QSize(), QIcon.Normal, QIcon.On) # icon not existe
         self.toggle_menu_btn.setIcon(icon)
         self.toggle_menu_btn.setIconSize(QSize(14, 14))
         self.toggle_menu_btn.setCheckable(True)
+        self.toggle_menu_btn.setAutoExclusive(True)
         self.content_header_widget_horizlay.addWidget(self.toggle_menu_btn)
 
         # content header left horizontal spacer
@@ -86,7 +88,7 @@ class Ui_MainWindow(object):
         # content header search input lineedit
         self.search_input = QLineEdit()
         self.search_input.setObjectName(u"search_input")
-        self.search_input.setPlaceholderText(u"Search...")
+        self.search_input.setPlaceholderText(u"ابحث ...")
         self.searchbox_horizLay.addWidget(self.search_input)
         # content header search button
         self.search_btn = QPushButton(self.content_header_widget)
@@ -172,13 +174,19 @@ class Ui_MainWindow(object):
         self.sidebar_main_widget_vertilay = QVBoxLayout(self.sidebar_main_widget)
         self.sidebar_main_widget_vertilay.setObjectName(u"sidebar_main_widget_vertilay")
         self.app_main_gridLay.addWidget(self.sidebar_main_widget, 0, 2, 1, 1)
+
+        # sidebar main title widget
+        self.sidebar_title_widget = QWidget()
+        self.sidebar_title_widget.setObjectName(u"sidebar_title_widget")
+        self.sidebar_main_widget_vertilay.addWidget(self.sidebar_title_widget)
         # sidebar main title horizontal layout
-        self.sidebar_title_horizLay = QHBoxLayout()
+        self.sidebar_title_horizLay = QHBoxLayout(self.sidebar_title_widget)
         self.sidebar_title_horizLay.setSpacing(0)
+        self.sidebar_title_horizLay.setContentsMargins(0, 0, 0, 0)
         self.sidebar_title_horizLay.setObjectName(u"sidebar_title_horizLay")
-        self.sidebar_main_widget_vertilay.addLayout(self.sidebar_title_horizLay)
+
         # sidebar title icon
-        self.logo_label_icon = QLabel(self.sidebar_main_widget)
+        self.logo_label_icon = QLabel()
         self.logo_label_icon.setObjectName(u"logo_label_icon")
         self.logo_label_icon.setMinimumSize(QSize(40, 40))
         self.logo_label_icon.setMaximumSize(QSize(40, 40))
@@ -186,37 +194,61 @@ class Ui_MainWindow(object):
         self.logo_label_icon.setScaledContents(True)
         self.sidebar_title_horizLay.addWidget(self.logo_label_icon)
         # sidebar title text
-        self.logo_label_text = QLabel(self.sidebar_main_widget)
+        self.logo_label_text = QLabel()
         self.logo_label_text.setObjectName(u"logo_label_text")
         font1 = QFont()
         font1.setPointSize(15)
         self.logo_label_text.setFont(font1)
         self.logo_label_text.setText(u"قائمة العمل")
         self.sidebar_title_horizLay.addWidget(self.logo_label_text)
+
+        # sidebar items box widget
+        self.sidebar_items_box_widget = QWidget()
+        # self.sidebar_items_box_widget.setSpacing(0)
+        self.sidebar_items_box_widget.setObjectName(u"sidebar_items_box_widget")
+        self.sidebar_main_widget_vertilay.addWidget(self.sidebar_items_box_widget)
         # sidebar items box vertical layout 
-        self.sidebar_items_vertiLay = QVBoxLayout()
+        self.sidebar_items_vertiLay = QVBoxLayout(self.sidebar_items_box_widget)
         self.sidebar_items_vertiLay.setSpacing(0)
         self.sidebar_items_vertiLay.setObjectName(u"sidebar_items_vertiLay")
-        self.sidebar_main_widget_vertilay.addLayout(self.sidebar_items_vertiLay)
+        self.sidebar_items_vertiLay.setAlignment(Qt.AlignRight)
+        # self.sidebar_main_widget_vertilay.addLayout(self.sidebar_items_vertiLay)
+        
         # sidebar item: home button
-        self.home_btn = QPushButton()
+        self.home_btn = QPushButton(self.sidebar_items_box_widget)
         self.home_btn.setObjectName(u"home_btn")
+        self.home_btn.setText(u"الرئيسية")
         icon3 = QIcon()
         icon3.addFile(u":/icon/icon/home-4-32.ico", QSize(), QIcon.Normal, QIcon.Off)
         icon3.addFile(u":/icon/icon/home-4-48.ico", QSize(), QIcon.Normal, QIcon.On)
         self.home_btn.setIcon(icon3)
         self.home_btn.setIconSize(QSize(14, 14))
+        self.home_btn.setLayoutDirection(Qt.RightToLeft)
         self.home_btn.setCheckable(True)
         self.home_btn.setAutoExclusive(True)
+
+    
+        #######------------------------------####
+        # testing
+        sizePolicy2 = QSizePolicy()
+        sizePolicy2.setHorizontalStretch(0)
+        # sizePolicy2.setVerticalStretch(0)
+        # sizePolicy2.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        self.home_btn.setSizePolicy(sizePolicy2)
+
+
+
         self.sidebar_items_vertiLay.addWidget(self.home_btn)
         # sidebar item: dashboard button
-        self.dashborad_btn = QPushButton()
+        self.dashborad_btn = QPushButton(self.sidebar_items_box_widget)
         self.dashborad_btn.setObjectName(u"dashborad_btn")
+        self.dashborad_btn.setText("لوحة القيادة")
         icon4 = QIcon()
         icon4.addFile(u":/icon/icon/dashboard-5-32.ico", QSize(), QIcon.Normal, QIcon.Off)
         icon4.addFile(u":/icon/icon/dashboard-5-48.ico", QSize(), QIcon.Normal, QIcon.On)
         self.dashborad_btn.setIcon(icon4)
         self.dashborad_btn.setIconSize(QSize(14, 14))
+        self.dashborad_btn.setLayoutDirection(Qt.RightToLeft)
         self.dashborad_btn.setCheckable(True)
         self.dashborad_btn.setAutoExclusive(True)
         self.sidebar_items_vertiLay.addWidget(self.dashborad_btn)
@@ -226,6 +258,7 @@ class Ui_MainWindow(object):
         # sidebar exit button
         self.exit_btn = QPushButton()
         self.exit_btn.setObjectName(u"exit_btn")
+        self.exit_btn.setText("الخروج")
         icon5 = QIcon()
         icon5.addFile(u":/icon/icon/close-window-64.ico", QSize(), QIcon.Normal, QIcon.Off)
         self.exit_btn.setIcon(icon5)
@@ -233,11 +266,14 @@ class Ui_MainWindow(object):
         self.sidebar_main_widget_vertilay.addWidget(self.exit_btn)
 
 
-
         self.toggle_menu_btn.toggled.connect(self.sidebar_main_widget.setHidden)
         self.exit_btn.clicked.connect(MainWindow.close)
 
-        self.content_stackedWidget.setCurrentIndex(1)
+        self.content_stackedWidget.setCurrentIndex(0)
 
         QMetaObject.connectSlotsByName(MainWindow)
+
+
+    
+
 
