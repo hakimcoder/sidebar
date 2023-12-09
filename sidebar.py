@@ -20,6 +20,27 @@ from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
     QSpacerItem, QStackedWidget, QVBoxLayout, QWidget)
 import resource_rc
 
+class IconButton(QWidget):
+    def __init__(self, text="", icon=None, parent=None):
+        super().__init__(parent)
+        layout = QHBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(5)
+        if icon:
+            icon_label = QLabel()
+            icon_label.setPixmap(icon.pixmap(14, 14))
+            layout.addWidget(icon_label)
+        text_label = QLabel(text)
+        layout.addWidget(text_label)
+
+        button = QPushButton()
+        button.setLayout(layout)
+        button.setFlat(True)
+        
+        
+    
+
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         ############################################################
@@ -214,31 +235,39 @@ class Ui_MainWindow(object):
         self.sidebar_items_vertiLay.setAlignment(Qt.AlignRight)
         # self.sidebar_main_widget_vertilay.addLayout(self.sidebar_items_vertiLay)
         
+        # sidebar item: test button
+        self.test_btn = IconButton("تجربة", QIcon(u":/icon/icon/home-4-32.ico"), self.sidebar_items_box_widget)
+        self.test_btn.setObjectName(u"test_btn")
+        self.sidebar_items_vertiLay.addWidget(self.test_btn)
+
+
+
         # sidebar item: home button
         self.home_btn = QPushButton(self.sidebar_items_box_widget)
         self.home_btn.setObjectName(u"home_btn")
-        self.home_btn.setText(u"الرئيسية")
         icon3 = QIcon()
         icon3.addFile(u":/icon/icon/home-4-32.ico", QSize(), QIcon.Normal, QIcon.Off)
         icon3.addFile(u":/icon/icon/home-4-48.ico", QSize(), QIcon.Normal, QIcon.On)
         self.home_btn.setIcon(icon3)
         self.home_btn.setIconSize(QSize(14, 14))
+        self.home_btn.setText(u"الرئيسية")
         self.home_btn.setLayoutDirection(Qt.RightToLeft)
         self.home_btn.setCheckable(True)
         self.home_btn.setAutoExclusive(True)
-
-    
-        #######------------------------------####
-        # testing
-        sizePolicy2 = QSizePolicy()
-        sizePolicy2.setHorizontalStretch(0)
-        # sizePolicy2.setVerticalStretch(0)
-        # sizePolicy2.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
-        self.home_btn.setSizePolicy(sizePolicy2)
-
-
-
         self.sidebar_items_vertiLay.addWidget(self.home_btn)
+
+
+        # #######------------------------------####
+        # # testing
+        # sizePolicy2 = QSizePolicy()
+        # sizePolicy2.setHorizontalStretch(0)
+        # # sizePolicy2.setVerticalStretch(0)
+        # # sizePolicy2.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        # self.home_btn.setSizePolicy(sizePolicy2)
+        # self.home_btn.setLayout
+
+
+
         # sidebar item: dashboard button
         self.dashborad_btn = QPushButton(self.sidebar_items_box_widget)
         self.dashborad_btn.setObjectName(u"dashborad_btn")
