@@ -20,26 +20,23 @@ from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
     QSpacerItem, QStackedWidget, QVBoxLayout, QWidget)
 import resource_rc
 
-class IconButton(QWidget):
-    def __init__(self, text="", icon=None, parent=None):
-        super().__init__(parent)
-        layout = QHBoxLayout()
+class IconButton(QPushButton):
+    def __init__(self, text="", icon=None):
+        super().__init__()
+        layout = QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(5)
+        text_label = QLabel(text)
+        layout.addWidget(text_label)
         if icon:
             icon_label = QLabel()
             icon_label.setPixmap(icon.pixmap(14, 14))
             layout.addWidget(icon_label)
-        text_label = QLabel(text)
-        layout.addWidget(text_label)
 
-        button = QPushButton()
-        button.setLayout(layout)
-        button.setFlat(True)
+        layout.setAlignment(Qt.AlignRight)
+        self.setLayout(layout)
+        # self.setFlat(True)
         
-        
-    
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -142,46 +139,46 @@ class Ui_MainWindow(object):
         # content stack widget home page
         self.page_home = QWidget()
         self.page_home.setObjectName(u"page_home")
-        self.page_vertilay = QVBoxLayout(self.page_home)
+        self.page_home_vertilay = QVBoxLayout(self.page_home)
         self.label_home = QLabel()
         self.label_home.setObjectName(u"label_home")
         self.label_home.setFont(font)
         self.label_home.setAlignment(Qt.AlignCenter)
         self.label_home.setText(u"The home page")
-        self.page_vertilay.addWidget(self.label_home)
+        self.page_home_vertilay.addWidget(self.label_home)
         self.content_stackedWidget.addWidget(self.page_home)
         # content stack widget dashboard page
         self.page_dashboard = QWidget()
         self.page_dashboard.setObjectName(u"page_dashboard")
-        self.page_vertilay = QVBoxLayout(self.page_dashboard)
+        self.page_dashboard_vertilay = QVBoxLayout(self.page_dashboard)
         self.label_dashboard = QLabel()
         self.label_dashboard.setObjectName(u"label_dashboard")
         self.label_dashboard.setFont(font)
         self.label_dashboard.setAlignment(Qt.AlignCenter)
         self.label_dashboard.setText(u"The dashboard page")
-        self.page_vertilay.addWidget(self.label_dashboard)
+        self.page_dashboard_vertilay.addWidget(self.label_dashboard)
         self.content_stackedWidget.addWidget(self.page_dashboard)
         # content stack widget search page
         self.page_search = QWidget()
         self.page_search.setObjectName(u"page_search")
-        self.page_vertilay = QVBoxLayout(self.page_search)
+        self.page_search_vertilay = QVBoxLayout(self.page_search)
         self.label_search = QLabel()
         self.label_search.setObjectName(u"label_search")
         self.label_search.setFont(font)
         self.label_search.setAlignment(Qt.AlignCenter)
         self.label_search.setText(u"The search page")
-        self.page_vertilay.addWidget(self.label_search)
+        self.page_search_vertilay.addWidget(self.label_search)
         self.content_stackedWidget.addWidget(self.page_search)
         # content stack widget user page
         self.page_user = QWidget()
         self.page_user.setObjectName(u"page_user")
-        self.page_vertilay = QVBoxLayout(self.page_user)
+        self.page_user_vertilay = QVBoxLayout(self.page_user)
         self.label_user = QLabel()
         self.label_user.setObjectName(u"label_user")
         self.label_user.setFont(font)
         self.label_user.setAlignment(Qt.AlignCenter)
         self.label_user.setText(u"The user page")
-        self.page_vertilay.addWidget(self.label_user)
+        self.page_user_vertilay.addWidget(self.label_user)
         self.content_stackedWidget.addWidget(self.page_user)
 
 
@@ -232,15 +229,13 @@ class Ui_MainWindow(object):
         self.sidebar_items_vertiLay = QVBoxLayout(self.sidebar_items_box_widget)
         self.sidebar_items_vertiLay.setSpacing(0)
         self.sidebar_items_vertiLay.setObjectName(u"sidebar_items_vertiLay")
-        self.sidebar_items_vertiLay.setAlignment(Qt.AlignRight)
+        # self.sidebar_items_vertiLay.setAlignment(Qt.AlignRight)
         # self.sidebar_main_widget_vertilay.addLayout(self.sidebar_items_vertiLay)
         
         # sidebar item: test button
-        self.test_btn = IconButton("تجربة", QIcon(u":/icon/icon/home-4-32.ico"), self.sidebar_items_box_widget)
+        self.test_btn = IconButton("تجربة", QIcon(u":/icon/icon/home-4-32.ico"))
         self.test_btn.setObjectName(u"test_btn")
         self.sidebar_items_vertiLay.addWidget(self.test_btn)
-
-
 
         # sidebar item: home button
         self.home_btn = QPushButton(self.sidebar_items_box_widget)
@@ -251,22 +246,10 @@ class Ui_MainWindow(object):
         self.home_btn.setIcon(icon3)
         self.home_btn.setIconSize(QSize(14, 14))
         self.home_btn.setText(u"الرئيسية")
-        self.home_btn.setLayoutDirection(Qt.RightToLeft)
+        # self.home_btn.setLayoutDirection(Qt.RightToLeft)
         self.home_btn.setCheckable(True)
         self.home_btn.setAutoExclusive(True)
         self.sidebar_items_vertiLay.addWidget(self.home_btn)
-
-
-        # #######------------------------------####
-        # # testing
-        # sizePolicy2 = QSizePolicy()
-        # sizePolicy2.setHorizontalStretch(0)
-        # # sizePolicy2.setVerticalStretch(0)
-        # # sizePolicy2.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
-        # self.home_btn.setSizePolicy(sizePolicy2)
-        # self.home_btn.setLayout
-
-
 
         # sidebar item: dashboard button
         self.dashborad_btn = QPushButton(self.sidebar_items_box_widget)
@@ -277,13 +260,15 @@ class Ui_MainWindow(object):
         icon4.addFile(u":/icon/icon/dashboard-5-48.ico", QSize(), QIcon.Normal, QIcon.On)
         self.dashborad_btn.setIcon(icon4)
         self.dashborad_btn.setIconSize(QSize(14, 14))
-        self.dashborad_btn.setLayoutDirection(Qt.RightToLeft)
+        # self.dashborad_btn.setLayoutDirection(Qt.RightToLeft)
         self.dashborad_btn.setCheckable(True)
         self.dashborad_btn.setAutoExclusive(True)
         self.sidebar_items_vertiLay.addWidget(self.dashborad_btn)
+        
         # sidebar vertical spacer
         self.sidebar_vertiSpacer = QSpacerItem(20, 373, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.sidebar_main_widget_vertilay.addItem(self.sidebar_vertiSpacer)
+
         # sidebar exit button
         self.exit_btn = QPushButton()
         self.exit_btn.setObjectName(u"exit_btn")
@@ -301,8 +286,3 @@ class Ui_MainWindow(object):
         self.content_stackedWidget.setCurrentIndex(0)
 
         QMetaObject.connectSlotsByName(MainWindow)
-
-
-    
-
-

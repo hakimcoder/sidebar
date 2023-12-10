@@ -60,15 +60,22 @@
 
 	/* style for QPushButton */
 	#sidebar_main_widget QPushButton {
-		/* border:none;
-		border-radius: 3px; */
+		border:none;
+		border-radius: 3px;
 		text-align: left;
-		/* padding: 8px 0 8px 15px;
-		color: #788596; */
+		padding: 8px 0 8px 10px;
+		color: #788596;
 	}
 
 	#sidebar_main_widget QPushButton:hover {
 		background-color: rgba( 86, 101, 115, 0.5);
+	}
+
+	#sidebar_items_box_widget {
+		background-color: #b9e90b;
+	}
+	#sidebar_items_vertiLay {
+		background-color: #e95c0b;
 	}
 
 	#sidebar_main_widget QPushButton:checked {
@@ -91,9 +98,9 @@
 
 /*= Style for search button START
   ==================================================== */
-	#search_btn {
+	/* #search_btn {
 		border: none;
-	}
+	} */
 /*= END
   ==================================================== */
 
@@ -102,18 +109,19 @@
 	#search_input {
 		border: none;
 		padding: 5px 10px;
+		background-color: #66e4b6;
 	}
 
 	#search_input:focus {
-		background-color: #70B9FE;
+		background-color: #46dfa7;
 	}
 /*= END
   ==================================================== */
 
 /*= Style for user information button START
   ==================================================== */
-	#user_btn {
+	/* #user_btn {
 		border: none;
-	}
+	} */
 /*= END
   ==================================================== */
