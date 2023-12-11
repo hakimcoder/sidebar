@@ -21,21 +21,30 @@ from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
 import resource_rc
 
 class IconButton(QPushButton):
-    def __init__(self, text="", icon=None):
+    def __init__(self, name=None, text="", icon_on=None, icon_off=None, alignment="r", checkable=True, auto_exclusive=True):
         super().__init__()
-        layout = QHBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(5)
+        if name:
+            self.setObjectName(u"name")
+        self.layout = QHBoxLayout(self)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setSpacing(5)
         text_label = QLabel(text)
-        layout.addWidget(text_label)
-        if icon:
+        self.layout.addWidget(text_label)
+        if icon_on:
+            self.icon = QIcon()
+            self.icon.addFile(icon_on, QSize(), QIcon.Normal, QIcon.On)
+            if icon_off:
+                self.icon.addFile(icon_off, QSize(), QIcon.Normal, QIcon.Off)
+            # self.setIconSize(QSize(14, 14))
             icon_label = QLabel()
-            icon_label.setPixmap(icon.pixmap(14, 14))
-            layout.addWidget(icon_label)
+            icon_label.setPixmap(self.icon.pixmap(14, 14))
+            self.layout.addWidget(icon_label)
 
-        layout.setAlignment(Qt.AlignRight)
-        self.setLayout(layout)
+        self.layout.setAlignment(Qt.AlignRight if alignment=="r" else (Qt.AlignLeft if alignment=="l" else Qt.AlignCenter))
+        self.setLayout(self.layout)
         # self.setFlat(True)
+        self.setCheckable(checkable)
+        self.setAutoExclusive(auto_exclusive)
         
 
 class Ui_MainWindow(object):
@@ -232,24 +241,11 @@ class Ui_MainWindow(object):
         # self.sidebar_items_vertiLay.setAlignment(Qt.AlignRight)
         # self.sidebar_main_widget_vertilay.addLayout(self.sidebar_items_vertiLay)
         
-        # sidebar item: test button
-        self.test_btn = IconButton("تجربة", QIcon(u":/icon/icon/home-4-32.ico"))
-        self.test_btn.setObjectName(u"test_btn")
-        self.sidebar_items_vertiLay.addWidget(self.test_btn)
 
         # sidebar item: home button
-        self.home_btn = QPushButton(self.sidebar_items_box_widget)
-        self.home_btn.setObjectName(u"home_btn")
-        icon3 = QIcon()
-        icon3.addFile(u":/icon/icon/home-4-32.ico", QSize(), QIcon.Normal, QIcon.Off)
-        icon3.addFile(u":/icon/icon/home-4-48.ico", QSize(), QIcon.Normal, QIcon.On)
-        self.home_btn.setIcon(icon3)
-        self.home_btn.setIconSize(QSize(14, 14))
-        self.home_btn.setText(u"الرئيسية")
-        # self.home_btn.setLayoutDirection(Qt.RightToLeft)
-        self.home_btn.setCheckable(True)
-        self.home_btn.setAutoExclusive(True)
+        self.home_btn = IconButton(name="home_btn", text=u"الرئيسية", icon_on=u":/icon/icon/home-4-32.ico", icon_off=u":/icon/icon/home-4-48.ico")
         self.sidebar_items_vertiLay.addWidget(self.home_btn)
+
 
         # sidebar item: dashboard button
         self.dashborad_btn = QPushButton(self.sidebar_items_box_widget)
